@@ -3,4 +3,4 @@ HaxeFlixel-FlxAsyncLoop-Demo
 
 Demonstration Project for FlxAsyncLoop
 
-Requires HaxeFlixel (haxeflixel.com) and HaxeFlixel-Addons 
+Requires HaxeFlixel (http://haxeflixel.com/) and HaxeFlixel-Addons 
