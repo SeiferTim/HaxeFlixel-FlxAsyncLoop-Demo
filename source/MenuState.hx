@@ -5,14 +5,10 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
-import flixel.system.FlxAssets;
 import flixel.system.resolution.RatioResolutionPolicy;
 import flixel.text.FlxText;
 import flixel.ui.FlxBar;
-import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
 import flixel.util.FlxColorUtil;
-import flixel.util.FlxMath;
 import flixel.util.FlxRandom;
 import flixel.util.FlxSpriteUtil;
 
@@ -48,7 +44,7 @@ class MenuState extends FlxState
 		_grpProgress = new FlxGroup();
 		_grpFinished = new FlxGroup(_maxItems);
 		
-		_loopOne = new FlxAsyncLoop(_maxItems, AddItem, _grpFinished, 100);
+		_loopOne = new FlxAsyncLoop(_maxItems, addItem, _grpFinished, 100);
 		
 		
 		add(_grpProgress);
@@ -72,11 +68,11 @@ class MenuState extends FlxState
 		super.create();
 	}
 	
-	public function AddItem(Grp:FlxGroup):Void
+	public function addItem():Void
 	{	
-		Grp.add(new FlxSprite(FlxRandom.intRanged(0, FlxG.width), FlxRandom.intRanged(0, FlxG.height)).makeGraphic(10, 10, FlxColorUtil.getRandomColor(0, 255, 255)));
-		_bar.currentValue = (Grp.members.length / _maxItems) * 100;
-		_barText.text = "Loading... " + Grp.members.length + " / " + _maxItems;
+		_grpFinished.add(new FlxSprite(FlxRandom.intRanged(0, FlxG.width), FlxRandom.intRanged(0, FlxG.height)).makeGraphic(10, 10, FlxColorUtil.getRandomColor(0, 255, 255)));
+		_bar.currentValue = (_grpFinished.members.length / _maxItems) * 100;
+		_barText.text = "Loading... " + _grpFinished.members.length + " / " + _maxItems;
 		FlxSpriteUtil.screenCenter(_barText);
 	}
 	
@@ -96,7 +92,6 @@ class MenuState extends FlxState
 	{
 		if (!_loopOne.started)
 		{
-			trace("starting");
 			_loopOne.start();
 		}
 		else
