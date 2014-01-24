@@ -1,11 +1,10 @@
 package;
 
-import flixel.addons.async.FlxAsyncLoop;
+import flixel.addons.util.FlxAsyncLoop;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxGroup;
-import flixel.system.resolution.RatioResolutionPolicy;
 import flixel.text.FlxText;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColorUtil;
@@ -32,7 +31,6 @@ class MenuState extends FlxState
 	 */
 	override public function create():Void
 	{
-		FlxG.resolutionPolicy = new RatioResolutionPolicy();
 
 		// Set a background color
 		FlxG.cameras.bgColor = 0xff131c1b;
@@ -44,7 +42,7 @@ class MenuState extends FlxState
 		_grpProgress = new FlxGroup();
 		_grpFinished = new FlxGroup(_maxItems);
 		
-		_loopOne = new FlxAsyncLoop(_maxItems, addItem, _grpFinished, 100);
+		_loopOne = new FlxAsyncLoop(_maxItems, addItem, 100);
 		
 		
 		add(_grpProgress);
@@ -70,6 +68,7 @@ class MenuState extends FlxState
 	
 	public function addItem():Void
 	{	
+		
 		_grpFinished.add(new FlxSprite(FlxRandom.intRanged(0, FlxG.width), FlxRandom.intRanged(0, FlxG.height)).makeGraphic(10, 10, FlxColorUtil.getRandomColor(0, 255, 255)));
 		_bar.currentValue = (_grpFinished.members.length / _maxItems) * 100;
 		_barText.text = "Loading... " + _grpFinished.members.length + " / " + _maxItems;
